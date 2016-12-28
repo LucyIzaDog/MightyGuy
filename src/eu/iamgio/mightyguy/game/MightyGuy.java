@@ -2,12 +2,16 @@ package eu.iamgio.mightyguy.game;
 
 import eu.iamgio.libfx.api.CSS;
 import eu.iamgio.libfx.api.FXML;
+import eu.iamgio.libfx.api.JavaFX;
+import eu.iamgio.libfx.api.animations.Animation;
 import eu.iamgio.libfx.api.elements.SimpleStage;
 import eu.iamgio.mightyguy.api.Game;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Created by Gio on 28/12/2016.
@@ -28,6 +32,29 @@ public class MightyGuy extends Application
         stage = new SimpleStage(primaryStage);
         stage.show(scene, "MightyGuy!", false);
         //TODO icon
+
+        playInitialAnimation();
+    }
+
+    private void playInitialAnimation()
+    {
+        Node title = JavaFX.fromId("title_img");
+        title.setTranslateY(title.getTranslateY() + 600);
+        new Animation(Animation.Type.MOVEMENT_Y, title.getTranslateY() - 600, Duration.seconds(1), false)
+                .play(title);
+        title.setOpacity(0);
+        new Animation(Animation.Type.FADE, 1, Duration.seconds(1), false)
+                .play(title);
+
+        Node play = JavaFX.fromId("play");
+        play.setOpacity(0);
+        new Animation(Animation.Type.FADE, 1, Duration.seconds(1.5), false)
+                .play(play);
+
+        Node shop = JavaFX.fromId("shop");
+        shop.setOpacity(0);
+        new Animation(Animation.Type.FADE, 1, Duration.seconds(1.5), false)
+                .play(shop);
     }
 
     public static void main(String...args)
