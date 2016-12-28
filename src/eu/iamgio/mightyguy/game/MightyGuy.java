@@ -1,17 +1,17 @@
 package eu.iamgio.mightyguy.game;
 
+import eu.iamgio.customevents.api.EventManager;
 import eu.iamgio.libfx.api.CSS;
 import eu.iamgio.libfx.api.FXML;
 import eu.iamgio.libfx.api.JavaFX;
-import eu.iamgio.libfx.api.animations.Animation;
 import eu.iamgio.libfx.api.elements.SimpleStage;
 import eu.iamgio.mightyguy.api.Game;
+import eu.iamgio.mightyguy.api.Menu;
+import eu.iamgio.mightyguy.game.listeners.ClickListener;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * Created by Gio on 28/12/2016.
@@ -21,6 +21,7 @@ public class MightyGuy extends Application
     public static SimpleStage stage;
 
     private static Game game;
+    private static Menu menu;
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -33,28 +34,18 @@ public class MightyGuy extends Application
         stage.show(scene, "MightyGuy!", false);
         //TODO icon
 
-        playInitialAnimation();
+        JavaFX.startDefaultEvents(scene);
+        startEvents();
+
+        menu = new Menu();
+        menu.playAnimation();
     }
 
-    private void playInitialAnimation()
+    private void startEvents()
     {
-        Node title = JavaFX.fromId("title_img");
-        title.setTranslateY(title.getTranslateY() + 600);
-        new Animation(Animation.Type.MOVEMENT_Y, title.getTranslateY() - 600, Duration.seconds(1), false)
-                .play(title);
-        title.setOpacity(0);
-        new Animation(Animation.Type.FADE, 1, Duration.seconds(1), false)
-                .play(title);
+        EventManager manager = JavaFX.getEventManager();
 
-        Node play = JavaFX.fromId("play");
-        play.setOpacity(0);
-        new Animation(Animation.Type.FADE, 1, Duration.seconds(1.5), false)
-                .play(play);
-
-        Node shop = JavaFX.fromId("shop");
-        shop.setOpacity(0);
-        new Animation(Animation.Type.FADE, 1, Duration.seconds(1.5), false)
-                .play(shop);
+        manager.registerEvents(new ClickListener());
     }
 
     public static void main(String...args)
@@ -71,10 +62,35 @@ public class MightyGuy extends Application
     }
 
     /**
+     * ends the game
+     */
+    public static void endGame()
+    {
+        game = null;
+    }
+
+    /**
      * @return true if there is an active game session
      */
-    public static boolean isInGame()
+    public static boolean inGame()
     {
         return game != null;
+    }
+
+    /**
+     * @return current menu
+     */
+    public static Menu getMenu()
+    {
+        return menu;
+    }
+
+    /**
+     * sets the menu
+     * @param menu new menu
+     */
+    public static void setMenu(Menu menu)
+    {
+        MightyGuy.menu = menu;
     }
 }
