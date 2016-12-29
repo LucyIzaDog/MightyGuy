@@ -7,9 +7,6 @@ import eu.iamgio.libfx.api.events.Loop;
 import eu.iamgio.mightyguy.game.MightyGuy;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
 /**
  * Created by Gio on 28/12/2016.
@@ -17,11 +14,11 @@ import javafx.scene.layout.Pane;
  */
 public class Game
 {
-    public boolean tutorial;
     private Scene scene;
 
     private Character character;
     private int score;
+    private Tutorial tutorial;
 
     /**
      * starts the game
@@ -39,7 +36,8 @@ public class Game
 
         if(MightyGuy.isFirstGame())
         {
-            showTutorial(scene);
+            tutorial = new Tutorial();
+            tutorial.show(scene);
             return;
         }
 
@@ -90,39 +88,18 @@ public class Game
     }
 
     /**
-     * shows the tutorial
-     * @param scene scene
-     */
-    private void showTutorial(Scene scene)
-    {
-        ImageView image = new ImageView(new Image(MightyGuy.class.getResourceAsStream("assets/game/tutorial.png")));
-        image.setFitWidth(900);
-        image.setFitHeight(500);
-        image.setId("tutorial");
-
-        ((Pane) JavaFX.getRoot()).getChildren().add(image);
-        JavaFX.startDefaultEvents(scene);
-
-        tutorial = true;
-    }
-
-    /**
-     * hides the tutorial
-     * @param scene scene
-     */
-    public void removeTutorial(Scene scene)
-    {
-        ((Pane) JavaFX.getRoot()).getChildren().remove(JavaFX.fromId("tutorial"));
-        Loop.Manager.start();
-
-        tutorial = false;
-    }
-
-    /**
      * @return game scene
      */
     public Scene getScene()
     {
         return scene;
+    }
+
+    /**
+     * @return current tutorial
+     */
+    public Tutorial getTutorial()
+    {
+        return tutorial;
     }
 }
