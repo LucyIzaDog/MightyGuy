@@ -8,6 +8,7 @@ import javafx.util.Duration;
 
 /**
  * Created by Gio on 29/12/2016.
+ * Represents the main menu
  */
 public class Menu
 {

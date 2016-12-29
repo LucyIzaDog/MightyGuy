@@ -7,7 +7,7 @@ import eu.iamgio.libfx.api.JavaFX;
 import eu.iamgio.libfx.api.elements.SimpleStage;
 import eu.iamgio.mightyguy.api.Game;
 import eu.iamgio.mightyguy.api.Menu;
-import eu.iamgio.mightyguy.game.listeners.ClickListener;
+import eu.iamgio.mightyguy.game.listeners.MenuClickListener;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +18,11 @@ import javafx.stage.Stage;
  */
 public class MightyGuy extends Application
 {
+    public static final String VERSION = "1.0.0";
+
     public static SimpleStage stage;
+
+    private static boolean firstGame;
 
     private static Game game;
     private static Menu menu;
@@ -31,7 +35,7 @@ public class MightyGuy extends Application
         CSS.load(getClass(), scene, "stylesheets/styles.css");
 
         stage = new SimpleStage(primaryStage);
-        stage.show(scene, "MightyGuy!", false);
+        stage.show(scene, "MightyGuy! v" + VERSION + " - by iAmGio", false);
         //TODO icon
 
         JavaFX.startDefaultEvents(scene);
@@ -45,7 +49,7 @@ public class MightyGuy extends Application
     {
         EventManager manager = JavaFX.getEventManager();
 
-        manager.registerEvents(new ClickListener());
+        manager.registerEvents(new MenuClickListener());
     }
 
     public static void main(String...args)
@@ -59,6 +63,14 @@ public class MightyGuy extends Application
     public static Game getGame()
     {
         return game;
+    }
+
+    /**
+     * creates the game
+     */
+    public static void createGame()
+    {
+        game = new Game();
     }
 
     /**
@@ -92,5 +104,22 @@ public class MightyGuy extends Application
     public static void setMenu(Menu menu)
     {
         MightyGuy.menu = menu;
+    }
+
+    /**
+     * @return true if this is the first game
+     */
+    public static boolean isFirstGame()
+    {
+        return firstGame;
+    }
+
+    /**
+     * sets the first game
+     * @param firstGame new first game value
+     */
+    public static void setFirstGame(boolean firstGame)
+    {
+        MightyGuy.firstGame = firstGame;
     }
 }

@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 /**
  * Created by Gio on 29/12/2016.
  */
-public class ClickListener implements Listener
+public class MenuClickListener implements Listener
 {
     @EventHandler
     public void onPress(MousePressEvent e)
@@ -53,6 +53,9 @@ public class ClickListener implements Listener
                 if(image.getId().equals("play"))
                 {
                     menu.removeClickEffect(image);
+
+                    MightyGuy.createGame();
+                    MightyGuy.getGame().start();
                 }
                 else if(image.getId().equals("shop"))
                 {
