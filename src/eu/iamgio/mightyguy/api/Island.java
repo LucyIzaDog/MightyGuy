@@ -20,6 +20,10 @@ public class Island
     public void spawn()
     {
         int score = MightyGuy.getGame().getScore();
+
+        final int BOUND_LEFT = 300;
+        final int BOUND_RIGHT = 800;
+
         final int BOUND_UP = 75;
         final int BOUND_DOWN = 450;
 
@@ -28,25 +32,27 @@ public class Island
             ImageView image = new ImageView(new Image(MightyGuy.class.getResourceAsStream("assets/game/island.png")));
             image.setTranslateX(50);
 
-            int y = new Random().nextInt(BOUND_DOWN);
-            while(y < BOUND_UP)
-                y = new Random().nextInt(BOUND_DOWN);
+            int y = new Random().nextInt(BOUND_DOWN - BOUND_UP) + BOUND_UP;
 
             image.setTranslateY(y);
             image.setId("island_" + score);
             ((Pane) JavaFX.getRoot()).getChildren().add(image);
-            System.out.println(y);
         }
 
         ImageView image = new ImageView(new Image(MightyGuy.class.getResourceAsStream("assets/game/island.png")));
-        image.setTranslateX(650);
 
-        int y = new Random().nextInt(BOUND_DOWN);
-        while(y < BOUND_UP)
-            y = new Random().nextInt(BOUND_DOWN);
+        int x = new Random().nextInt(BOUND_RIGHT - BOUND_LEFT) + BOUND_LEFT;
+        int y = new Random().nextInt(BOUND_DOWN - BOUND_UP) + BOUND_UP;
 
+        image.setTranslateX(x);
         image.setTranslateY(y);
         image.setId("island_" + score + 1);
         ((Pane) JavaFX.getRoot()).getChildren().add(image);
+
+        while(Math.abs(JavaFX.fromId("island_" + score).getTranslateY() - image.getTranslateY()) > 300)
+        {
+            y = new Random().nextInt(BOUND_DOWN - BOUND_UP) + BOUND_UP;
+            image.setTranslateY(y);
+        }
     }
 }

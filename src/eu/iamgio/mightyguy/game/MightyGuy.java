@@ -7,6 +7,7 @@ import eu.iamgio.libfx.api.JavaFX;
 import eu.iamgio.libfx.api.elements.SimpleStage;
 import eu.iamgio.mightyguy.api.Game;
 import eu.iamgio.mightyguy.api.Menu;
+import eu.iamgio.mightyguy.game.listeners.KeyListener;
 import eu.iamgio.mightyguy.game.listeners.MenuClickListener;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -22,7 +23,7 @@ public class MightyGuy extends Application
 
     public static SimpleStage stage;
 
-    private static boolean firstGame;
+    private static boolean firstGame = true;
 
     private static Game game;
     private static Menu menu;
@@ -45,11 +46,15 @@ public class MightyGuy extends Application
         menu.playAnimation();
     }
 
+    /**
+     * starts the events
+     */
     private void startEvents()
     {
         EventManager manager = JavaFX.getEventManager();
 
         manager.registerEvents(new MenuClickListener());
+        manager.registerEvents(new KeyListener());
     }
 
     public static void main(String...args)

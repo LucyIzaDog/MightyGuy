@@ -43,7 +43,7 @@ public class MenuClickListener implements Listener
         if(!MightyGuy.inGame())
             if(e.getMouseEvent().getTarget() instanceof ImageView)
             {
-                ImageView image = ((ImageView) e.getMouseEvent().getTarget());
+                ImageView image = (ImageView) e.getMouseEvent().getTarget();
 
                 if(image.getId() == null)
                     return;
