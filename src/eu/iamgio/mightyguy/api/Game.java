@@ -24,40 +24,6 @@ public class Game
     private int score;
 
     /**
-     * @return character
-     */
-    public Character getCharacter()
-    {
-        return character;
-    }
-
-    /**
-     * sets the character
-     * @param character new character
-     */
-    public void setCharacter(Character character)
-    {
-        this.character = character;
-    }
-
-    /**
-     * @return score
-     */
-    public int getScore()
-    {
-        return score;
-    }
-
-    /**
-     * sets the score
-     * @param score new score
-     */
-    public void setScore(int score)
-    {
-        this.score = score;
-    }
-
-    /**
      * starts the game
      */
     public void start()
@@ -79,6 +45,48 @@ public class Game
 
         JavaFX.startDefaultEvents(scene);
         Loop.Manager.start();
+    }
+
+    /**
+     * ends the game
+     */
+    public void end()
+    {
+        //TODO
+    }
+
+    /**
+     * @return character
+     */
+    public Character getCharacter()
+    {
+        return character;
+    }
+
+    /**
+     * sets the character
+     * @param character new character
+     */
+    void setCharacter(Character character)
+    {
+        this.character = character;
+    }
+
+    /**
+     * @return score
+     */
+    int getScore()
+    {
+        return score;
+    }
+
+    /**
+     * sets the score
+     * @param score new score
+     */
+    public void setScore(int score)
+    {
+        this.score = score;
     }
 
     /**

@@ -12,12 +12,12 @@ import java.util.Random;
  * Created by Gio on 29/12/2016.
  * Represents an island
  */
-public class Island
+class Island
 {
     /**
      * spawns an island randomly
      */
-    public void spawn()
+    void spawn()
     {
         int score = MightyGuy.getGame().getScore();
 

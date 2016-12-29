@@ -25,7 +25,7 @@ public class Character
     /**
      * spawns the character
      */
-    public void spawn()
+    void spawn()
     {
         image = new ImageView(new Image(MightyGuy.class.getResourceAsStream(
                 "assets/game/player/p_move_right.png")));
@@ -35,14 +35,6 @@ public class Character
         ((Pane) JavaFX.getRoot()).getChildren().add(image);
 
         MightyGuy.getGame().setCharacter(this);
-    }
-
-    /**
-     * @return current state
-     */
-    public State getState()
-    {
-        return state;
     }
 
     /**
@@ -67,6 +59,14 @@ public class Character
     public void jump()
     {
         setState(State.JUMP);
+    }
+
+    /**
+     * @return current state
+     */
+    public State getState()
+    {
+        return state;
     }
 
     /**
