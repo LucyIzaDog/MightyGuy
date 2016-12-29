@@ -31,7 +31,12 @@ public class KeyListener implements Listener
             KeyCode code = e.getKeyEvent().getCode();
 
             if(code == KeyCode.W || code == KeyCode.UP || code == KeyCode.SPACE)
-                character.jump();
+            {
+                if(character.getState() == Character.State.MOVE_RIGHT)
+                    character.jumpRight();
+                else if(character.getState() == Character.State.MOVE_LEFT)
+                    character.jumpLeft();
+            }
             else if(code == KeyCode.A || code == KeyCode.LEFT)
                 character.moveLeft();
             else if(code == KeyCode.D || code == KeyCode.RIGHT)
