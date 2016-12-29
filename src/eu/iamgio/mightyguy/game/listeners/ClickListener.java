@@ -33,7 +33,6 @@ public class ClickListener implements Listener
                 else if(image.getId().equals("shop"))
                 {
                     menu.applyClickEffect(image);
-                    image.setTranslateX(image.getTranslateX() + 10);
                 }
             }
     }
@@ -58,7 +57,6 @@ public class ClickListener implements Listener
                 else if(image.getId().equals("shop"))
                 {
                     menu.removeClickEffect(image);
-                    image.setTranslateX(image.getTranslateX() - 10);
                 }
             }
     }
