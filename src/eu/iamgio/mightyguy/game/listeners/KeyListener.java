@@ -29,6 +29,9 @@ public class KeyListener implements Listener
             Character character = game.getCharacter();
             KeyCode code = e.getKeyEvent().getCode();
 
+            //if(!character.isOnGround())
+            //    return;
+
             if(code == KeyCode.W || code == KeyCode.UP || code == KeyCode.SPACE)
             {
                 if(character.getState() == Character.State.MOVE_RIGHT)
@@ -37,9 +40,17 @@ public class KeyListener implements Listener
                     character.jumpLeft();
             }
             else if(code == KeyCode.A || code == KeyCode.LEFT)
-                character.moveLeft();
+            {
+                character.setVelocity(character.getVelocity() == 1 ? -1 : character.getVelocity() - 1);
+                if(character.getVelocity() <= 0)
+                    character.moveLeft();
+            }
             else if(code == KeyCode.D || code == KeyCode.RIGHT)
-                character.moveRight();
+            {
+                character.setVelocity(character.getVelocity() == -1 ? 1 : character.getVelocity() + 1);
+                if(character.getVelocity() >= 0)
+                    character.moveRight();
+            }
         }
     }
 }

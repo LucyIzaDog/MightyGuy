@@ -12,22 +12,14 @@ import eu.iamgio.mightyguy.game.MightyGuy;
  */
 public class LoopListener implements Listener
 {
+    private double initY = 0;
+
     @EventHandler
-    public void loop(Loop loop)
+    public void loop(Loop loop) throws InterruptedException
     {
         Game game = MightyGuy.getGame();
         Character character = game.getCharacter();
 
-        switch(character.getState())
-        {
-            case MOVE_RIGHT:
-                character.setX(character.getX() + 5);
-                break;
-            case MOVE_LEFT:
-                character.setX(character.getX() - 5);
-                break;
-        }
-
-        System.out.println(character.hitsIsland());
+        character.move();
     }
 }

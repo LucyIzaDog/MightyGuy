@@ -54,6 +54,14 @@ public class Game
     }
 
     /**
+     * resets the game
+     */
+    public void reset()
+    {
+        //TODO
+    }
+
+    /**
      * @return character
      */
     public Character getCharacter()

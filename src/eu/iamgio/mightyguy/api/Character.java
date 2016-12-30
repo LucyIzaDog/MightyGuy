@@ -18,11 +18,15 @@ public class Character
     {
         MOVE_RIGHT, MOVE_LEFT,
         JUMP_RIGHT, JUMP_LEFT,
+        FALL_RIGHT, FALL_LEFT
     }
 
     private State state = State.MOVE_RIGHT;
     private ImageView image;
     private Rectangle hitpoint;
+    private int velocity = 1;
+
+    private double jumpStartX, jumpStartY;
 
     /**
      * spawns the character
@@ -43,6 +47,23 @@ public class Character
         ((Pane) JavaFX.getRoot()).getChildren().addAll(image, hitpoint);
 
         MightyGuy.getGame().setCharacter(this);
+    }
+
+    /**
+     * @return velocity
+     */
+    public int getVelocity()
+    {
+        return velocity;
+    }
+
+    /**
+     * sets the velocity
+     * @param velocity new velocity
+     */
+    public void setVelocity(int velocity)
+    {
+        this.velocity = velocity;
     }
 
     /**
@@ -78,6 +99,22 @@ public class Character
     }
 
     /**
+     * makes the character falling to the right
+     */
+    public void fallRight()
+    {
+        setState(State.FALL_RIGHT);
+    }
+
+    /**
+     * makes the character falling to the left
+     */
+    public void fallLeft()
+    {
+        setState(State.FALL_LEFT);
+    }
+
+    /**
      * @return current state
      */
     public State getState()
@@ -93,25 +130,88 @@ public class Character
     {
         this.state = state;
 
+        final String PLAYER_ASSETS = "assets/game/player/";
+
         switch(state)
         {
             case MOVE_RIGHT:
                 image.setImage(new Image(MightyGuy.class.getResourceAsStream(
-                        "assets/game/player/p_move_right.png")));
+                        PLAYER_ASSETS + "p_move_right.png")));
                 break;
             case MOVE_LEFT:
                 image.setImage(new Image(MightyGuy.class.getResourceAsStream(
-                        "assets/game/player/p_move_left.png")));
+                        PLAYER_ASSETS + "p_move_left.png")));
                 break;
             case JUMP_RIGHT:
                 image.setImage(new Image(MightyGuy.class.getResourceAsStream(
-                        "assets/game/player/p_jump_right.png")));
+                        PLAYER_ASSETS + "p_jump_right.png")));
                 break;
             case JUMP_LEFT:
                 image.setImage(new Image(MightyGuy.class.getResourceAsStream(
-                        "assets/game/player/p_jump_left.png")));
+                        PLAYER_ASSETS + "p_jump_left.png")));
+                break;
+            case FALL_RIGHT:
+                image.setImage(new Image(MightyGuy.class.getResourceAsStream(
+                        PLAYER_ASSETS + "p_fall_right.png")));
+                break;
+            case FALL_LEFT:
+                image.setImage(new Image(MightyGuy.class.getResourceAsStream(
+                        PLAYER_ASSETS + "p_fall_left.png")));
                 break;
         }
+    }
+
+    /**
+     * moves the character
+     */
+    private double y = 1;
+    public void move()
+    {
+        int vel = Math.abs(velocity);
+
+        if(vel == 0)
+            return;
+
+        switch(getState())
+        {
+            case MOVE_RIGHT:
+                setX(getX() + 5 * vel);
+                break;
+            case MOVE_LEFT:
+                setX(getX() - 5 * vel);
+                break;
+            case JUMP_RIGHT:
+                if(y == 50 / vel)
+                {
+                    fallRight();
+                    break;
+                }
+                setX(getX() + 5 * vel);
+                setY(getY() - 8 / vel);
+                y += 1;
+                break;
+            case JUMP_LEFT:
+                if(y == 50 / vel)
+                {
+                    fallLeft();
+                    break;
+                }
+                setX(getX() - 5 * vel);
+                setY(getY() - 8 / vel);
+                y += 1;
+                break;
+            case FALL_RIGHT:
+                y = 0;
+                setX(getX() + 5);
+                setY(getY() + 5);
+                break;
+            case FALL_LEFT:
+                y = 0;
+                setX(getX() - 5);
+                setY(getY() + 5);
+                break;
+        }
+
     }
 
     /**
