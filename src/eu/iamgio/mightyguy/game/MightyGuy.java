@@ -8,6 +8,7 @@ import eu.iamgio.libfx.api.elements.SimpleStage;
 import eu.iamgio.mightyguy.api.Game;
 import eu.iamgio.mightyguy.api.Menu;
 import eu.iamgio.mightyguy.game.listeners.KeyListener;
+import eu.iamgio.mightyguy.game.listeners.LoopListener;
 import eu.iamgio.mightyguy.game.listeners.MenuClickListener;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -55,6 +56,7 @@ public class MightyGuy extends Application
 
         manager.registerEvents(new MenuClickListener());
         manager.registerEvents(new KeyListener());
+        JavaFX.getEventManager().registerEvents(new LoopListener());
     }
 
     public static void main(String...args)

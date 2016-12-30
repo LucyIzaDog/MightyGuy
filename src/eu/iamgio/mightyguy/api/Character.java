@@ -2,6 +2,7 @@ package eu.iamgio.mightyguy.api;
 
 import eu.iamgio.libfx.api.JavaFX;
 import eu.iamgio.mightyguy.game.MightyGuy;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -118,11 +119,49 @@ public class Character
      */
     public boolean isOnGround()
     {
+        for(Node n : JavaFX.getSceneElements())
+            if(n.getId() != null && n.getId().startsWith("island"))
+            {
+                Rectangle islandRectangle = new Rectangle(n.getTranslateX(), n.getTranslateY(), 157, 53);
+
+                if(JavaFX.intersects((Rectangle) JavaFX.fromId("hitpoint"), islandRectangle))
+                    return true;
+            }
+
+        return false;
+    }
+
+    /**
+     * @return true if the character is on the next island
+     */
+    public boolean isOnNewIsland()
+    {
         ImageView island = (ImageView) JavaFX.fromId("island_" + (MightyGuy.getGame().getScore()+1));
-        Rectangle islandRectangle = new Rectangle(island.getX(), island.getY(), island.getFitWidth(), island.getFitHeight());
-        ((Pane) JavaFX.getRoot()).getChildren().add(islandRectangle);
+        Rectangle islandRectangle = new Rectangle(
+                island.getTranslateX(), island.getTranslateY(), 157, 53);
         return JavaFX.intersects(
                 (Rectangle) JavaFX.fromId("hitpoint"), islandRectangle);
+    }
+
+    /**
+     * @return true if the character hits an island
+     */
+    public boolean hitsIsland()
+    {
+        Rectangle playerRectangle = new Rectangle(
+                image.getX(), image.getTranslateY(), 66, 85);
+
+        for(Node n : JavaFX.getSceneElements())
+            if(n.getId() != null && n.getId().startsWith("island"))
+            {
+                Rectangle islandRectangle = new Rectangle(
+                        n.getTranslateX(), n.getTranslateY(), 157, 53);
+
+                if(JavaFX.intersects(playerRectangle, islandRectangle))
+                    return true;
+            }
+
+        return false;
     }
 
     /**

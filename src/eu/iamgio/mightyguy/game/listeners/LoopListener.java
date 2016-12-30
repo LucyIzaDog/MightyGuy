@@ -27,5 +27,7 @@ public class LoopListener implements Listener
                 character.setX(character.getX() - 5);
                 break;
         }
+
+        System.out.println(character.hitsIsland());
     }
 }

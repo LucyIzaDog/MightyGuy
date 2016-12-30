@@ -3,7 +3,6 @@ package eu.iamgio.mightyguy.api;
 import eu.iamgio.libfx.api.JavaFX;
 import eu.iamgio.libfx.api.events.Loop;
 import eu.iamgio.mightyguy.game.MightyGuy;
-import eu.iamgio.mightyguy.game.listeners.LoopListener;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,7 +42,6 @@ public class Tutorial
     {
         ((Pane) JavaFX.getRoot()).getChildren().remove(JavaFX.fromId("tutorial"));
 
-        JavaFX.getEventManager().registerEvents(new LoopListener());
         Loop.Manager.start();
 
         active = false;

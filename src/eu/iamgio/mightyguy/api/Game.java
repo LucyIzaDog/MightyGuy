@@ -5,7 +5,6 @@ import eu.iamgio.libfx.api.FXML;
 import eu.iamgio.libfx.api.JavaFX;
 import eu.iamgio.libfx.api.events.Loop;
 import eu.iamgio.mightyguy.game.MightyGuy;
-import eu.iamgio.mightyguy.game.listeners.LoopListener;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -43,7 +42,6 @@ public class Game
         }
 
         JavaFX.startDefaultEvents(scene);
-        JavaFX.getEventManager().registerEvents(new LoopListener());
         Loop.Manager.start();
     }
 

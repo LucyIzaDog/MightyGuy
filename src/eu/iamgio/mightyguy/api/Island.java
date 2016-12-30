@@ -46,7 +46,7 @@ class Island
 
         image.setTranslateX(x);
         image.setTranslateY(y);
-        image.setId("island_" + score + 1);
+        image.setId("island_" + (score + 1));
         ((Pane) JavaFX.getRoot()).getChildren().add(image);
 
         while(Math.abs(JavaFX.fromId("island_" + score).getTranslateY() - image.getTranslateY()) > 300)
