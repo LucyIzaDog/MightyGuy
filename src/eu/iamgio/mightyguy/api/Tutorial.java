@@ -3,6 +3,7 @@ package eu.iamgio.mightyguy.api;
 import eu.iamgio.libfx.api.JavaFX;
 import eu.iamgio.libfx.api.events.Loop;
 import eu.iamgio.mightyguy.game.MightyGuy;
+import eu.iamgio.mightyguy.game.listeners.LoopListener;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,10 +11,11 @@ import javafx.scene.layout.Pane;
 
 /**
  * Created by Gio on 29/12/2016.
+ * Represents the initial tutorial screen
  */
 public class Tutorial
 {
-    private static boolean active;
+    private boolean active;
 
     /**
      * shows the tutorial
@@ -27,6 +29,7 @@ public class Tutorial
         image.setId("tutorial");
 
         ((Pane) JavaFX.getRoot()).getChildren().add(image);
+
         JavaFX.startDefaultEvents(scene);
 
         active = true;
@@ -39,6 +42,8 @@ public class Tutorial
     public void hide(Scene scene)
     {
         ((Pane) JavaFX.getRoot()).getChildren().remove(JavaFX.fromId("tutorial"));
+
+        JavaFX.getEventManager().registerEvents(new LoopListener());
         Loop.Manager.start();
 
         active = false;
@@ -47,7 +52,7 @@ public class Tutorial
     /**
      * @return true if the tutorial is active
      */
-    public static boolean isActive()
+    public boolean isActive()
     {
         return active;
     }

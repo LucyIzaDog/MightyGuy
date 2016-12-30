@@ -5,7 +5,6 @@ import eu.iamgio.customevents.api.Listener;
 import eu.iamgio.libfx.api.events.KeyPressEvent;
 import eu.iamgio.mightyguy.api.Character;
 import eu.iamgio.mightyguy.api.Game;
-import eu.iamgio.mightyguy.api.Tutorial;
 import eu.iamgio.mightyguy.game.MightyGuy;
 import javafx.scene.input.KeyCode;
 
@@ -21,7 +20,7 @@ public class KeyListener implements Listener
         {
             Game game = MightyGuy.getGame();
 
-            if(Tutorial.isActive())
+            if(game.getTutorial().isActive())
             {
                 game.getTutorial().hide(game.getScene());
                 return;

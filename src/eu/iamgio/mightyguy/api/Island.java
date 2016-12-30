@@ -35,7 +35,7 @@ class Island
             int y = new Random().nextInt(BOUND_DOWN - BOUND_UP) + BOUND_UP;
 
             image.setTranslateY(y);
-            image.setId("island_" + score);
+            image.setId("island_0");
             ((Pane) JavaFX.getRoot()).getChildren().add(image);
         }
 
