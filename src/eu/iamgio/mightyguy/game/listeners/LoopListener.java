@@ -21,5 +21,30 @@ public class LoopListener implements Listener
         Character character = game.getCharacter();
 
         character.move();
+
+        if(character.isOnGround())
+        {
+            switch(character.getState())
+            {
+                case FALL_RIGHT:
+                    character.moveRight();
+                    break;
+                case FALL_LEFT:
+                    character.moveLeft();
+                    break;
+            }
+        }
+        else
+        {
+            switch(character.getState())
+            {
+                case MOVE_RIGHT:
+                    character.fallRight();
+                    break;
+                case MOVE_LEFT:
+                    character.fallLeft();
+                    break;
+            }
+        }
     }
 }

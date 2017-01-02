@@ -29,10 +29,7 @@ public class KeyListener implements Listener
             Character character = game.getCharacter();
             KeyCode code = e.getKeyEvent().getCode();
 
-            //if(!character.isOnGround())
-            //    return;
-
-            if(code == KeyCode.W || code == KeyCode.UP || code == KeyCode.SPACE)
+            if(code == KeyCode.W || code == KeyCode.UP || code == KeyCode.SPACE && character.isOnGround())
             {
                 if(character.getState() == Character.State.MOVE_RIGHT)
                     character.jumpRight();
@@ -41,12 +38,34 @@ public class KeyListener implements Listener
             }
             else if(code == KeyCode.A || code == KeyCode.LEFT)
             {
+                if(!character.isOnGround() && character.getState() == Character.State.FALL_RIGHT)
+                {
+                    character.fallLeft();
+                    return;
+                }
+
+                if(!(character.isOnGround() ||
+                        character.getState() == Character.State.FALL_RIGHT ||
+                        character.getState() == Character.State.FALL_LEFT))
+                    return;
+
                 character.setVelocity(character.getVelocity() == 1 ? -1 : character.getVelocity() - 1);
                 if(character.getVelocity() <= 0)
                     character.moveLeft();
             }
             else if(code == KeyCode.D || code == KeyCode.RIGHT)
             {
+                if(!character.isOnGround() && character.getState() == Character.State.FALL_LEFT)
+                {
+                    character.fallRight();
+                    return;
+                }
+
+                if(!(character.isOnGround() ||
+                        character.getState() == Character.State.FALL_RIGHT ||
+                        character.getState() == Character.State.FALL_LEFT))
+                    return;
+
                 character.setVelocity(character.getVelocity() == -1 ? 1 : character.getVelocity() + 1);
                 if(character.getVelocity() >= 0)
                     character.moveRight();

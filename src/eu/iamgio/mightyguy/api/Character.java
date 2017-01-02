@@ -40,9 +40,9 @@ public class Character
         image.setId("char");
 
         hitpoint = new Rectangle(
-                image.getX() + 100, image.getTranslateY() + 92, 5, 5);
+                image.getX() + 100, image.getTranslateY() + 88, 5, 5);
         hitpoint.setId("hitpoint");
-        hitpoint.setOpacity(0);
+        hitpoint.setOpacity(1);
 
         ((Pane) JavaFX.getRoot()).getChildren().addAll(image, hitpoint);
 
@@ -164,7 +164,7 @@ public class Character
     /**
      * moves the character
      */
-    private double y = 1;
+    private double y = 0;
     public void move()
     {
         int vel = Math.abs(velocity);
@@ -172,43 +172,45 @@ public class Character
         if(vel == 0)
             return;
 
+        final int MOVEMENT = 2;
+
         switch(getState())
         {
             case MOVE_RIGHT:
-                setX(getX() + 5 * vel);
+                setX(getX() + MOVEMENT * vel);
                 break;
             case MOVE_LEFT:
-                setX(getX() - 5 * vel);
+                setX(getX() - MOVEMENT * vel);
                 break;
             case JUMP_RIGHT:
-                if(y == 50 / vel)
+                if(y == 40 - (vel * vel))
                 {
                     fallRight();
                     break;
                 }
-                setX(getX() + 5 * vel);
+                setX(getX() + MOVEMENT * vel * 2);
                 setY(getY() - 8 / vel);
                 y += 1;
                 break;
             case JUMP_LEFT:
-                if(y == 50 / vel)
+                if(y == 40 - (vel * vel))
                 {
                     fallLeft();
                     break;
                 }
-                setX(getX() - 5 * vel);
+                setX(getX() - MOVEMENT * vel * 2);
                 setY(getY() - 8 / vel);
                 y += 1;
                 break;
             case FALL_RIGHT:
                 y = 0;
-                setX(getX() + 5);
-                setY(getY() + 5);
+                setX(getX() + MOVEMENT * vel * 2);
+                setY(getY() + MOVEMENT * vel * 1.5);
                 break;
             case FALL_LEFT:
                 y = 0;
-                setX(getX() - 5);
-                setY(getY() + 5);
+                setX(getX() - MOVEMENT * vel * 2);
+                setY(getY() + MOVEMENT * vel * 1.5);
                 break;
         }
 
@@ -267,7 +269,7 @@ public class Character
     /**
      * @return x
      */
-    public double getX()
+    private double getX()
     {
         return image.getX();
     }
@@ -275,7 +277,7 @@ public class Character
     /**
      * @return y
      */
-    public double getY()
+    private double getY()
     {
         return image.getTranslateY();
     }
@@ -284,7 +286,7 @@ public class Character
      * sets the x value
      * @param x x coordinate
      */
-    public void setX(double x)
+    private void setX(double x)
     {
         image.setX(x);
         hitpoint.setX(x + 90);
@@ -294,9 +296,9 @@ public class Character
      * sets the y value
      * @param y y coordinate
      */
-    public void setY(double y)
+    private void setY(double y)
     {
         image.setTranslateY(y);
-        hitpoint.setTranslateY(y + 92);
+        hitpoint.setTranslateY(y + 88);
     }
 }
