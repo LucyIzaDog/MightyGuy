@@ -42,7 +42,7 @@ public class Character
         hitpoint = new Rectangle(
                 image.getX() + 100, image.getTranslateY() + 88, 5, 5);
         hitpoint.setId("hitpoint");
-        hitpoint.setOpacity(1);
+        hitpoint.setOpacity(0);
 
         ((Pane) JavaFX.getRoot()).getChildren().addAll(image, hitpoint);
 
@@ -239,10 +239,13 @@ public class Character
     public boolean isOnNewIsland()
     {
         ImageView island = (ImageView) JavaFX.fromId("island_" + (MightyGuy.getGame().getScore()+1));
-        Rectangle islandRectangle = new Rectangle(
-                island.getTranslateX(), island.getTranslateY(), 157, 53);
-        return JavaFX.intersects(
-                (Rectangle) JavaFX.fromId("hitpoint"), islandRectangle);
+        if(island != null)
+        {
+            Rectangle islandRectangle = new Rectangle(island.getTranslateX(), island.getTranslateY(), 157, 53);
+            return JavaFX.intersects((Rectangle) JavaFX.fromId("hitpoint"), islandRectangle);
+        }
+
+        return false;
     }
 
     /**
@@ -299,6 +302,6 @@ public class Character
     private void setY(double y)
     {
         image.setTranslateY(y);
-        hitpoint.setTranslateY(y + 88);
+        hitpoint.setY(y + 88);
     }
 }

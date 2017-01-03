@@ -22,15 +22,36 @@ public class LoopListener implements Listener
 
         character.move();
 
+        if(character.hitsIsland())
+        {
+            switch(character.getState())
+            {
+                case FALL_RIGHT:
+                case JUMP_RIGHT:
+                case MOVE_RIGHT:
+                    character.fallLeft();
+                    break;
+                case FALL_LEFT:
+                case JUMP_LEFT:
+                case MOVE_LEFT:
+                    character.fallRight();
+                    break;
+            }
+
+            return;
+        }
+
         if(character.isOnGround())
         {
             switch(character.getState())
             {
                 case FALL_RIGHT:
                     character.moveRight();
+                    character.setVelocity(1);
                     break;
                 case FALL_LEFT:
                     character.moveLeft();
+                    character.setVelocity(-1);
                     break;
             }
         }
