@@ -12,17 +12,17 @@ import java.util.Random;
  * Created by Gio on 29/12/2016.
  * Represents an island
  */
-class Island
+public class Island
 {
     /**
      * spawns an island randomly
      */
-    void spawn()
+    public void spawn()
     {
         int score = MightyGuy.getGame().getScore();
 
-        final int BOUND_LEFT = 300;
-        final int BOUND_RIGHT = 800;
+        final int BOUND_LEFT = 100;
+        final int BOUND_RIGHT = 300;
 
         final int BOUND_UP = 75;
         final int BOUND_DOWN = 450;
@@ -44,12 +44,16 @@ class Island
         int x = new Random().nextInt(BOUND_RIGHT - BOUND_LEFT) + BOUND_LEFT;
         int y = new Random().nextInt(BOUND_DOWN - BOUND_UP) + BOUND_UP;
 
-        image.setTranslateX(x);
+        if(MightyGuy.getGame().getCharacter() == null)
+            image.setTranslateX(200 + x);
+        else
+            image.setTranslateX(MightyGuy.getGame().getCharacter().getX() + 200 + x);
+
         image.setTranslateY(y);
         image.setId("island_" + (score + 1));
         ((Pane) JavaFX.getRoot()).getChildren().add(image);
 
-        while(Math.abs(JavaFX.fromId("island_" + score).getTranslateY() - image.getTranslateY()) > 300)
+        while(Math.abs(JavaFX.fromId("island_" + score).getTranslateY() - image.getTranslateY()) > 200)
         {
             y = new Random().nextInt(BOUND_DOWN - BOUND_UP) + BOUND_UP;
             image.setTranslateY(y);

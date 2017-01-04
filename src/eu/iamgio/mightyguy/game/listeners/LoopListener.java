@@ -2,10 +2,13 @@ package eu.iamgio.mightyguy.game.listeners;
 
 import eu.iamgio.customevents.api.EventHandler;
 import eu.iamgio.customevents.api.Listener;
+import eu.iamgio.libfx.api.JavaFX;
 import eu.iamgio.libfx.api.events.Loop;
 import eu.iamgio.mightyguy.api.Character;
 import eu.iamgio.mightyguy.api.Game;
+import eu.iamgio.mightyguy.api.Island;
 import eu.iamgio.mightyguy.game.MightyGuy;
+import javafx.scene.image.ImageView;
 
 /**
  * Created by Gio on 30/12/2016.
@@ -22,7 +25,15 @@ public class LoopListener implements Listener
 
         character.move();
 
-        if(character.hitsIsland())
+        JavaFX.getRoot().getChildrenUnmodifiable().forEach(node ->
+        {
+            if(node.getTranslateX() > -500)
+                if(node instanceof ImageView)
+                    if(((ImageView) node).getImage().getHeight() == 53)
+                        node.setTranslateX(node.getTranslateX() - (game.getScore() + 1.2) / 3);
+        });
+
+        /*if(character.hitsIsland())
         {
             switch(character.getState())
             {
@@ -39,7 +50,7 @@ public class LoopListener implements Listener
             }
 
             return;
-        }
+        }*/
 
         if(character.isOnGround())
         {
@@ -66,6 +77,12 @@ public class LoopListener implements Listener
                     character.fallLeft();
                     break;
             }
+        }
+
+        if(character.isOnNewIsland())
+        {
+            game.setScore(game.getScore() + 1);
+            new Island().spawn();
         }
     }
 }

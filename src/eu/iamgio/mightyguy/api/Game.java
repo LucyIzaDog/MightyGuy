@@ -81,7 +81,7 @@ public class Game
     /**
      * @return score
      */
-    int getScore()
+    public int getScore()
     {
         return score;
     }

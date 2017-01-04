@@ -26,8 +26,6 @@ public class Character
     private Rectangle hitpoint;
     private int velocity = 1;
 
-    private double jumpStartX, jumpStartY;
-
     /**
      * spawns the character
      */
@@ -42,7 +40,7 @@ public class Character
         hitpoint = new Rectangle(
                 image.getX() + 100, image.getTranslateY() + 88, 5, 5);
         hitpoint.setId("hitpoint");
-        hitpoint.setOpacity(0);
+        hitpoint.setOpacity(1);
 
         ((Pane) JavaFX.getRoot()).getChildren().addAll(image, hitpoint);
 
@@ -272,7 +270,7 @@ public class Character
     /**
      * @return x
      */
-    private double getX()
+    double getX()
     {
         return image.getX();
     }
